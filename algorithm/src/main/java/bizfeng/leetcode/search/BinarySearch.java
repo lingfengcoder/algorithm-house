@@ -1,20 +1,20 @@
-package bizfeng.leetcode;
+package bizfeng.leetcode.search;
 
 /**
  * 二分查找
  */
-public class BinarySearch {
+public class BinarySearch implements Search<Integer> {
+    private final static String NAME = "二分查找";
+    public final static BinarySearch me = new BinarySearch();
+
     public static void main(String[] args) {
         int count = 33333;
-        int[] array = new int[count];
+        Integer[] array = new Integer[count];
         for (int i = 0; i < count; i++) {
             array[i] = i;
         }
-
         for (int i = 0; i < count; i++) {
-
             int x = find(array, i);
-
             System.out.println("i=" + i + "在索引位置" + x);
         }
 
@@ -23,13 +23,13 @@ public class BinarySearch {
     //假设array是从小到大
     //找不到返回-1
     //1,2,3,4,5,6,7
-    private static int find(int[] array, int target) {
+    private static int find(Integer[] array, Integer target) {
         int left = 0;
         int right = array.length - 1;
         int middle = 0;
         while (left <= right) {
             middle = (left + right) / 2;
-            if (array[middle] == target) {
+            if (target.equals(array[middle])) {
                 return middle;
             } else if (array[middle] > target) {
                 right = middle - 1;
@@ -40,4 +40,11 @@ public class BinarySearch {
         return -1;
     }
 
+    public int search(Integer[] array, Integer target) {
+        return find(array, target);
+    }
+
+    public String name() {
+        return NAME;
+    }
 }
