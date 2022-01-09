@@ -1,5 +1,7 @@
 package bizfeng.leetcode.search;
 
+import bizfeng.leetcode.Shuffle;
+
 /**
  * 二分查找
  */
@@ -18,6 +20,12 @@ public class BinarySearch implements Search<Integer> {
             System.out.println("i=" + i + "在索引位置" + x);
         }
 
+    }
+
+    public int search(Integer[] array, Integer target) {
+        //使用随机洗牌算法打乱原始数组
+        Shuffle.random(array);
+        return find(array, target);
     }
 
     //假设array是从小到大
@@ -40,9 +48,6 @@ public class BinarySearch implements Search<Integer> {
         return -1;
     }
 
-    public int search(Integer[] array, Integer target) {
-        return find(array, target);
-    }
 
     public String name() {
         return NAME;

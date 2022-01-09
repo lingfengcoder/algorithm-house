@@ -1,5 +1,7 @@
 package bizfeng.leetcode.sort;
 
+import bizfeng.leetcode.Shuffle;
+
 import java.util.Arrays;
 
 /**
@@ -20,12 +22,14 @@ public class QuickSort implements Sort<Integer> {
         System.out.println(Arrays.toString(data));
     }
 
-    public void sort(Integer[] array) {
-        sort(array, 0, array.length - 1);
-    }
-
     public String name() {
         return NAME;
+    }
+
+    public void sort(Integer[] array) {
+        //使用随机洗牌算法打乱数据
+        Shuffle.random(array);
+        sort(array, 0, array.length - 1);
     }
 
     //从小到大排列

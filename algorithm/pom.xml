@@ -8,5 +8,24 @@
     <artifactId>algorithm</artifactId>
     <version>1.0-SNAPSHOT</version>
     <description>算法的JAVA仓库</description>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
+    <!--    <dependencies>-->
+    <!--        <dependency>-->
+    <!--            <groupId>cn.hutool</groupId>-->
+    <!--            <artifactId>hutool-all</artifactId>-->
+    <!--            <version>5.4.5</version>-->
+    <!--        </dependency>-->
+    <!--    </dependencies>-->
 </project>

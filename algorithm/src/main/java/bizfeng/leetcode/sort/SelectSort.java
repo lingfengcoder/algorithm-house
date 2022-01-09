@@ -1,5 +1,7 @@
 package bizfeng.leetcode.sort;
 
+import bizfeng.leetcode.Shuffle;
+
 import java.util.Arrays;
 
 /**
@@ -18,6 +20,8 @@ public class SelectSort implements Sort<Integer> {
     }
 
     public void sort(Integer[] array) {
+        //使用随机洗牌算法打乱数据
+        Shuffle.random(array);
         sort(array, 0);
     }
 

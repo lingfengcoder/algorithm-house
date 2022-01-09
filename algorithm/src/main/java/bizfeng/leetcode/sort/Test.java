@@ -11,8 +11,8 @@ public class Test {
     public static void main(String[] args) {
         List<Integer[]> data = generalData(20000, 2000);
 
-        //test(data, SelectSort.me);//10790
         test(data, QuickSort.me);//2371
+        test(data, SelectSort.me);//10790
     }
 
     public static void test(List<Integer[]> data, Sort<Integer> sort) {
