@@ -225,7 +225,7 @@ public class LruCache<K, V> implements Cache<K, V> {
 
     public String print() {
         StringBuilder builder = new StringBuilder();
-        Node<K, V> node = this.link.head;
+        Node<K, V> node = this.link.head.nextNode;
         while (node != null && node.getNextNode() != null) {
             builder.append("[k=").append(node.getKey())
                     .append(",v=").append(node.getValue())
