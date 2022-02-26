@@ -1,14 +1,12 @@
 package bizfeng.leetcode.array;
 
-import java.util.Arrays;
 import java.util.Random;
 import java.util.Stack;
-import java.util.Vector;
 
 /**
  * @Author: wz
  * @Date: 2022/2/26 17:17
- * @Description: 寻找 随机数组中 下一个最大数的值和位置  利用 反向入栈stack 正向出栈 实现 O(N)时间复杂度
+ * @Description: [特殊数据结构之单调队列]  寻找 随机数组中 下一个最大数的值和位置  利用 反向入栈stack 正向出栈 实现 O(N)时间复杂度
  */
 public class FindNextBiggerInArray {
 
