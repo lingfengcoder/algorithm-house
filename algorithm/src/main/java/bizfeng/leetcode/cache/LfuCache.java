@@ -37,11 +37,11 @@ public class LfuCache<K, V> implements Cache<K, V> {
     //最小访问频率
     private int minFreq = 0;
     //数据存储
-    private HashMap<K, V> cache;
+    private final HashMap<K, V> cache;
     //key-freq map
-    private HashMap<K, Integer> k2Freq;
+    private final HashMap<K, Integer> k2Freq;
     //freq - key 带访问时间的存储形式
-    private HashMap<Integer, LinkedHashSet<K>> freq2k;
+    private final HashMap<Integer, LinkedHashSet<K>> freq2k;
 
     public LfuCache(int cap) {
         this.capacity = cap;
@@ -206,5 +206,4 @@ public class LfuCache<K, V> implements Cache<K, V> {
         }
         return builder.toString();
     }
-
 }

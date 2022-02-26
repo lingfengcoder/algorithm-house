@@ -1,6 +1,5 @@
 package bizfeng.leetcode.cache;
 
-import bizfeng.leetcode.cache.Cache;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -59,7 +58,7 @@ public class LruCache<K, V> implements Cache<K, V> {
         //获取到node
         Node<K, V> node = map.get(k);
         //将node放到链表最前面 提升为最近使用的
-        link.join(node);
+        link.replaceFirst(node);
         return node;
     }
 
@@ -81,7 +80,7 @@ public class LruCache<K, V> implements Cache<K, V> {
             link.joinNew(node);
         } else {
             //将元素放到头部 队列长度不变
-            link.join(node);
+            link.replaceFirst(node);
         }
         //存入map中
         map.put(key, node);
@@ -167,7 +166,7 @@ public class LruCache<K, V> implements Cache<K, V> {
         }
 
         //将旧的节点插入到队首
-        public void join(Node<K, V> node) {
+        public void replaceFirst(Node<K, V> node) {
             //删除节点原本的关联
             node.delNode();
             //插队
