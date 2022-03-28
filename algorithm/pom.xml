@@ -20,6 +20,9 @@
             </plugin>
         </plugins>
     </build>
+    <properties>
+        <log4j.version>2.15.0</log4j.version>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -27,12 +30,46 @@
             <version>1.18.20</version>
             <scope>provided</scope>
         </dependency>
+
+
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.4.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.36</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>1.7.36</version>
+            <scope>runtime</scope>
+        </dependency>
+
+
+        <!--用于与slf4j保持桥接-->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+<!--            <version>2.4.1</version>-->
+            <version>${log4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+
     </dependencies>
-    <!--    <dependencies>-->
-    <!--        <dependency>-->
-    <!--            <groupId>cn.hutool</groupId>-->
-    <!--            <artifactId>hutool-all</artifactId>-->
-    <!--            <version>5.4.5</version>-->
-    <!--        </dependency>-->
-    <!--    </dependencies>-->
+
 </project>
