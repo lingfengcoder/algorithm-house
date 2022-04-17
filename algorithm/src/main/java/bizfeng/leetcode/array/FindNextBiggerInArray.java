@@ -47,10 +47,10 @@ public class FindNextBiggerInArray {
         //  测试距离下一个大数的差距
         result = lookForHighWeather(meta);
         System.out.println(result);
-        // [2,1,2,4,3]，你返回数组 [4,2,4,-1,4]。
+        // [2,1,2,4,3]，返回数组 [4,2,4,-1,4]。
         meta = new Integer[]{2, 1, 2, 4, 3};
 
-        // [2,1,2,4,3]，你返回数组 [4,2,4,-1,4]。
+        // [2,1,2,4,3]，返回数组 [4,2,4,-1,4]。
         meta = new Integer[]{2, 1, 3, 4, 3};
         //测试环形数组的下一个大数
         result = recycleArrayNextBigger(meta);
@@ -97,6 +97,7 @@ public class FindNextBiggerInArray {
             }
             // nums[i] 身后的 next great number
             result[i] = (stack.empty() ? -1 : stack.peek());
+            //继续存入
             stack.push(nums[i]);
         }
         return result;
@@ -144,7 +145,7 @@ public class FindNextBiggerInArray {
     }
 
 
-    //将数组arr变为环形数组     1,2,3,4 ->  1,2,3,4,1,2,3,4
+    //将数组arr变为环形数组(首尾相接)     1,2,3,4 ->  1,2,3,4,1,2,3,4
     private static Integer[] recycleArray(Integer[] arr) {
         int len = arr.length;
         Integer[] result = new Integer[2 * len];

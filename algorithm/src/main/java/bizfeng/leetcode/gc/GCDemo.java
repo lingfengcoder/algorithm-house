@@ -14,8 +14,8 @@ import java.util.concurrent.TimeUnit;
  * @Author: wz
  * @Date: 2022/3/28 14:12
  * @Description: GC分析
- *
- *
+ * <p>
+ * <p>
  * -Xmx10M
  * -Xms10M
  * -Xmn5M
@@ -42,7 +42,6 @@ import java.util.concurrent.TimeUnit;
  * -Dcom.sun.management.jmxremote.port=1000
  * -Dcom.sun.management.jmxremote.ssl=false
  * -Dcom.sun.management.jmxremote.authenticate=false
- *
  */
 @Slf4j
 public class GCDemo {
@@ -63,8 +62,8 @@ public class GCDemo {
     static int count = 0;
 
     private static void memoryTest() {
-        int size = 1024 * RandomUtil.randomInt(8,128);
-        Byte[] data = new Byte[size];
+        int size = 1024 * RandomUtil.randomInt(8, 128);
+        byte[] data = new byte[size];
         System.out.println(count++);
     }
 }
