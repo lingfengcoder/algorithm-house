@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.LinkedList;
 
 /**
- * 二叉树的中序遍历
+ * 二叉树的前序、中序、后序遍历
  * <p>
  * 思考：其实无论三种遍历方式的任何一种都是进行了递归操作，那核心思想就在于建立 最小模型，
  * 当遍历的模型建立好了之后，其实每一层都只是一样的操作而已。无非三种执行的先后顺序不一致（添加根节点数据的顺序），导致的结果也不同而已。
@@ -22,7 +22,7 @@ import java.util.LinkedList;
 public class MiddleOrderTraversal {
 
     public static void main(String[] args) {
-        //树张这样
+        //树长这样
 
         //         0
         //      /     \

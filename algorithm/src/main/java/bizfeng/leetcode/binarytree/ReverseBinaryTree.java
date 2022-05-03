@@ -12,7 +12,7 @@ public class ReverseBinaryTree {
 
 
     public static void main(String[] args) {
-        //树张这样
+        //树长这样
 
         //         0
         //      /     \
@@ -51,11 +51,13 @@ public class ReverseBinaryTree {
             return null;
         }
 
-
+        //左右节点交换
         reverseLR(tree);
+        //左树非叶子节点，那就继续对左边树进行递归交换
         if (tree.getLeft() != null) {
             reverseBinaryTree(tree.getLeft());
         }
+        //右树非叶子节点，继续对右树进行左右递归交换
         if (tree.getRight() != null) {
             reverseBinaryTree(tree.getRight());
         }
