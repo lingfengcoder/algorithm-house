@@ -53,8 +53,8 @@ public class GCDemo {
         log.info("用户的当前工作目录:" + System.getProperty("user.dir"));
 
         while (true) {
-            memoryTest();
-            TimeUnit.SECONDS.sleep(1);
+            //memoryTest();
+            TimeUnit.SECONDS.sleep(14);
         }
     }
 
@@ -62,7 +62,7 @@ public class GCDemo {
     static int count = 0;
 
     private static void memoryTest() {
-        int size = 1024 * RandomUtil.randomInt(8, 128);
+        int size = 1024 ;//* RandomUtil.randomInt(8, 128);
         byte[] data = new byte[size];
         System.out.println(count++);
     }
