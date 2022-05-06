@@ -69,6 +69,8 @@ public class ConcurrentHashMapAnalysis {
         }, "biz++2").start();
     }
 
+
+
     private static Demo get(Map<Integer, Demo> map, int id) {
         Demo demo = map.get(id);
         synchronized (demo) {
