@@ -10,3 +10,13 @@ spring:
     maxActive: 20
     # 配置获取连接等待超时的时间
     maxWait: 6000
+
+  application:
+    name: algorithm
+logback:
+  level: INFO
+log:
+  file:
+    path: /data/algorithm/log/
+    name: 666
+    suffix: log

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+    <springProperty scope="context" name="logback.level" source="logback.level" defaultValue="INFO"/>
+    <springProperty scope="context" name="spring.application.name" source="spring.application.name"/>
+<!--    <springProperty scope="context" name="log.file.path" source="log.file.path"/>-->
+<!--    <springProperty scope="context" name="log.file.name" source="log.file.name"/>-->
+<!--    <springProperty scope="context" name="log.file.suffix" source="log.file.suffix"/>-->
+<!--    <springProperty scope="context" name="log.file.compress.suffix" source="log.file.compress.suffix"/>-->
+    <property name="log.file.path" value="/data/algorithm/log/"/>
+    <property name="log.file.name" value="666"/>
+    <property name="log.file.suffix" value="log"/>
+
+    <!-- 彩色日志格式 -->
+    <property name="CONSOLE_LOG_PATTERN"
+              value="${CONSOLE_LOG_PATTERN:-%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+    <!--  <property name="AMQP_LOG_PATTERN"
+                  value="[%-5level] %d{${DATETIME}} [%thread] [%ip] %logger{36} %file:%line - %m%n"/>-->
+    <!--格式化输出,%d:日期;%thread:线程名;%-5level：级别,从左显示5个字符宽度;%msg:日志消息;%n:换行符-->
+    <property name="AMQP_LOG_PATTERN"
+              value="[%-5level] %d{yyyy-MM-dd HH:mm:ss} [%thread] [%ip] %logger{36} %file:%line - %m%n"/>
+    <!-- 彩色日志依赖的渲染类 -->
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
+    <conversionRule conversionWord="wex"
+                    converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter"/>
+    <conversionRule conversionWord="wEx"
+                    converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter"/>
+    <!-- Console log output -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!--<pattern>%red(%d{yyyy-MM-dd HH:mm:ss}) %green([%thread]) [%class:%line] %highlight(%-5level) - %cyan(%msg%n)</pattern>-->
+            <!--<pattern>%d{${DATETIME}} [%-5level] %logger{36} %file:%line - %msg%n</pattern>-->
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <!--<level>DEBUG</level>-->
+        </filter>
+    </appender>
+
+    <!-- Log file debug output -->
+    <appender name="${log.file.name}" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.file.path}${log.file.name}.${log.file.suffix}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.file.path}${log.file.name}.%d{yyyy-MM-dd}.${log.file.suffix}.${log.file.compress.suffix}</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%date [%thread]   - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <!-- <level>DEBUG</level>-->
+            <!-- 匹配时的操作：接收（记录） -->
+            <!--<onMatch>ACCEPT</onMatch>-->
+            <!-- 不匹配时的操作：拒绝（不记录） -->
+            <!--<onMismatch>DENY</onMismatch>-->
+        </filter>
+    </appender>
+
+    <!--  异步输出日志-->
+    <appender name="ASYNC-INFO" class="ch.qos.logback.classic.AsyncAppender">
+        <!-- 不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 -->
+        <discardingThreshold>0</discardingThreshold>
+        <!-- 更改默认的队列的深度,该值会影响性能.默认值为256 -->
+        <queueSize>512</queueSize>
+        <!-- 添加附加的appender,最多只能添加一个 -->
+        <appender-ref ref="${log.file.name}"/>
+    </appender>
+
+    <!-- Level: FATAL 0  ERROR 3  WARN 4  INFO 6  DEBUG 7 -->
+    <root level="${logback.level}">
+        <appender-ref ref="console"/>
+        <appender-ref ref="${log.file.name}"/>
+        <!-- <appender-ref ref="error"/>-->
+    </root>
+</configuration>
