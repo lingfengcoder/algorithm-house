@@ -1,4 +1,2 @@
-target
-algorithm.iml
 *.iml
-*.idea
+.idea

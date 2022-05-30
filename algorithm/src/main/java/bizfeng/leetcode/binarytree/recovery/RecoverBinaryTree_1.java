@@ -1,4 +1,4 @@
-package bizfeng.leetcode.binarytree;
+package bizfeng.leetcode.binarytree.recovery;
 
 
 import bizfeng.leetcode.base.BinaryNode;
@@ -31,7 +31,7 @@ import java.util.Arrays;
  * 2.递归处理，找出子树构建的规律
  */
 @Slf4j
-public class RecoverBinaryTree {
+public class RecoverBinaryTree_1 {
 
     public static void main(String[] args) {
         int[] preorder = new int[]{3, 9, 20, 15, 7};
