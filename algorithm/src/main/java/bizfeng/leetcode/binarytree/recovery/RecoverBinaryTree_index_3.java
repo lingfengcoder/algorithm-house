@@ -67,7 +67,7 @@ public class RecoverBinaryTree_index_3 {
 
     }
 
-    private static BinaryNode<Integer> buildTree(int[] preorder, int[] postorder) {
+    public static BinaryNode<Integer> buildTree(int[] preorder, int[] postorder) {
         //为空判断
         if (postorder == null || preorder == null || postorder.length == 0 || preorder.length == 0) {
             return null;

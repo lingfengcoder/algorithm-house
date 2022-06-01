@@ -54,7 +54,7 @@ public class RecoverBinaryTree_1 {
 
     }
 
-    private static BinaryNode<Integer> buildTree(int[] preorder, int[] inorder) {
+    public static BinaryNode<Integer> buildTree(int[] preorder, int[] inorder) {
         if (preorder == null || inorder == null || preorder.length == 0 || inorder.length == 0) {
             return null;
         }

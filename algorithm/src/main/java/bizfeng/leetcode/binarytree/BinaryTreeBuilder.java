@@ -1,16 +1,23 @@
 package bizfeng.leetcode.binarytree;
 
 import bizfeng.leetcode.base.BinaryNode;
+import bizfeng.leetcode.binarytree.recovery.RecoverBinaryTree_1;
+import bizfeng.leetcode.binarytree.recovery.RecoverBinaryTree_2;
+import bizfeng.leetcode.binarytree.recovery.RecoverBinaryTree_index_1;
 
 /**
  * 二叉树builder
  */
 public class BinaryTreeBuilder {
 
+    //使用前序和中序序列构造树
+    public static BinaryNode<Integer> buildTreeWithPreInorder(int[] preorder, int[] inorder) {
+        return RecoverBinaryTree_1.buildTree(preorder, inorder);
+    }
 
     //普通二叉树
     public static BinaryNode<Integer> build() {
-        //树张这样
+        //树长这样
 
         //         0
         //      /     \
@@ -114,4 +121,61 @@ public class BinaryTreeBuilder {
                 );
         return rootNode;
     }
+
+    public static BinaryNode<Integer> buildDuplicateTree() {
+        //树长这样
+
+        //         0
+        //      /      \
+        //    1          2
+        //   /  \      /   \
+        //  3    10   3    10
+        // / \   / \ / \   / \
+        //4   2 3  4 4  6  7  4
+        //种树
+        //长出树根
+        BinaryNode<Integer> rootNode = new BinaryNode<>();
+
+        BinaryNode<Integer> leftNode = new BinaryNode<>();
+        BinaryNode<Integer> rightNode = new BinaryNode<>();
+
+        rootNode
+                //长出左边的树枝
+                .setLeft(leftNode)
+                //长出右边的树枝
+                .setRight(rightNode)
+                .setData(0);
+
+        leftNode
+                //数据
+                .setData(1)
+                //左树叶
+                .setLeft(new BinaryNode<Integer>().setData(3)
+                        .setLeft(new BinaryNode<Integer>().setData(4))
+                        .setRight(new BinaryNode<Integer>().setData(2))
+                )
+
+                //右树枝
+                .setRight(new BinaryNode<Integer>().setData(10)
+                        .setLeft(new BinaryNode<Integer>().setData(3))
+                        .setRight(new BinaryNode<Integer>().setData(4))
+                );
+
+        //长出右边的树枝
+
+        rightNode
+                .setData(2)
+                //左树叶
+                .setLeft(new BinaryNode<Integer>().setData(3)
+                        .setLeft(new BinaryNode<Integer>().setData(4))
+                        .setRight(new BinaryNode<Integer>().setData(6))
+                )
+                //右树叶
+                .setRight(new BinaryNode<Integer>().setData(10)
+                        .setLeft(new BinaryNode<Integer>().setData(7))
+                        .setRight(new BinaryNode<Integer>().setData(4))
+                );
+        return rootNode;
+    }
+
 }
