@@ -1,7 +1,7 @@
-package bizfeng.leetcode.threadpool.queue.plan2;
+package bizfeng.leetcode.threadpool.dubbo.queue.plan2;
 
-import bizfeng.leetcode.threadpool.EagerExecutorService;
-import bizfeng.leetcode.threadpool.TaskQueue;
+import bizfeng.leetcode.threadpool.dubbo.EagerExecutorService;
+import bizfeng.leetcode.threadpool.dubbo.TaskQueue;
 
 import java.util.Collection;
 

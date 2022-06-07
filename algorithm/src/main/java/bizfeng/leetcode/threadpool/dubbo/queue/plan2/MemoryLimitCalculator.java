@@ -1,4 +1,4 @@
-package bizfeng.leetcode.threadpool.queue.plan2;
+package bizfeng.leetcode.threadpool.dubbo.queue.plan2;
 
 /**
  * {@link javax.management.MXBean} technology is used to calculate the memory

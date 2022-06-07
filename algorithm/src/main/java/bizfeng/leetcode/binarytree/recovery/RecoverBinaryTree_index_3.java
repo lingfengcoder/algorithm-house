@@ -5,6 +5,7 @@ import bizfeng.leetcode.base.BinaryNode;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 /**
  * 根据一棵树的前序序与后序序列构造二叉树
@@ -33,7 +34,7 @@ import java.util.Arrays;
  *  前序：3,2,1
  *  后序: 1,2,3
  *  这两棵树的前序和后序的结果是一致的
- *
+ * <p>
  * 1.首先要找到前序和中序序列的特点
  * #    比如:  a.后续序最后一个元素必然是根节点
  * #           b.前续序第一个元素必然是根节点
@@ -46,7 +47,11 @@ import java.util.Arrays;
 @Slf4j
 public class RecoverBinaryTree_index_3 {
 
+
     public static void main(String[] args) {
+
+
+
         int[] preorder = new int[]{3, 9, 20, 15, 7};
         int[] postorder = new int[]{9, 15, 7, 20, 3};
         BinaryNode<Integer> tree = buildTree(preorder, postorder);

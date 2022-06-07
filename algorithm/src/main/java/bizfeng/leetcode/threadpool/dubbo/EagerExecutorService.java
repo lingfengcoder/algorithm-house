@@ -1,4 +1,4 @@
-package bizfeng.leetcode.threadpool;
+package bizfeng.leetcode.threadpool.dubbo;
 
 import java.util.concurrent.ExecutorService;
 

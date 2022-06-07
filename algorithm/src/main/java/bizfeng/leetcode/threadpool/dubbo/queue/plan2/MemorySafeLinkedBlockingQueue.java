@@ -1,4 +1,4 @@
-package bizfeng.leetcode.threadpool.queue.plan2;
+package bizfeng.leetcode.threadpool.dubbo.queue.plan2;
 
 import java.util.Collection;
 import java.util.concurrent.LinkedBlockingQueue;

@@ -1,4 +1,4 @@
-package bizfeng.leetcode.threadpool.queue.plan1;
+package bizfeng.leetcode.threadpool.dubbo.queue.plan1;
 
 
 import java.lang.instrument.Instrumentation;
