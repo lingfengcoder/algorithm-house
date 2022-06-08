@@ -26,32 +26,32 @@ public class FutureUtils {
      * OctoThriftCallback 为thrift回调方法
      * ThriftAsyncCall 为自定义函数，用来表示一次thrift调用（定义如上）
      */
-    public static <T> CompletableFuture<T> toCompletableFuture(
-            final OctoThriftCallback<?, T> callback,
-            ThriftAsyncCall thriftCall) {
-        CompletableFuture<T> thriftResultFuture = new CompletableFuture<>();
-
-        callback.addObserver(new OctoObserver<T>() {
-            @Override
-            public void onSuccess(T t) {
-                thriftResultFuture.complete(t);
-            }
-
-            @Override
-            public void onFailure(Throwable throwable) {
-                thriftResultFuture.completeExceptionally(throwable);
-            }
-        });
-
-        if (thriftCall != null) {
-            try {
-                thriftCall.invoke();
-            } catch (Exception e) {
-                thriftResultFuture.completeExceptionally(e);
-            }
-        }
-        return thriftResultFuture;
-    }
+//    public static <T> CompletableFuture<T> toCompletableFuture(
+//            final OctoThriftCallback<?, T> callback,
+//            ThriftAsyncCall thriftCall) {
+//        CompletableFuture<T> thriftResultFuture = new CompletableFuture<>();
+//
+//        callback.addObserver(new OctoObserver<T>() {
+//            @Override
+//            public void onSuccess(T t) {
+//                thriftResultFuture.complete(t);
+//            }
+//
+//            @Override
+//            public void onFailure(Throwable throwable) {
+//                thriftResultFuture.completeExceptionally(throwable);
+//            }
+//        });
+//
+//        if (thriftCall != null) {
+//            try {
+//                thriftCall.invoke();
+//            } catch (Exception e) {
+//                thriftResultFuture.completeExceptionally(e);
+//            }
+//        }
+//        return thriftResultFuture;
+//    }
 
     /**
      * 设置CF状态为失败

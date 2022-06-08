@@ -1,7 +1,7 @@
 package bizfeng.leetcode.binarytree.recovery;
 
 
-import bizfeng.leetcode.base.BinaryNode;
+import bizfeng.leetcode.base.TreeNode;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Arrays;
@@ -37,7 +37,7 @@ public class RecoverBinaryTree_index_1 {
     public static void main(String[] args) {
         int[] preorder = new int[]{3, 9, 20, 15, 7};
         int[] inorder = new int[]{9, 3, 15, 20, 7};
-        BinaryNode<Integer> tree = buildTree(preorder, inorder);
+        TreeNode<Integer> tree = buildTree(preorder, inorder);
         log.info("还原出来的树：{}", tree);
 
 
@@ -55,19 +55,21 @@ public class RecoverBinaryTree_index_1 {
 
     }
 
-    public static BinaryNode<Integer> buildTree(int[] preorder, int[] inorder) {
+    public static TreeNode<Integer> buildTree(int[] preorder, int[] inorder) {
         //特殊情况处理
         if (preorder == null || inorder == null || preorder.length == 0 || inorder.length == 0) {
             return null;
         }
         if (preorder.length == 1 || inorder.length == 1) {
-            return new BinaryNode<Integer>().setData(preorder[0]);
+            TreeNode<Integer> node = new TreeNode<>();
+            node.val = (preorder[0]);
+            return node;
         }
         //对于整个二叉树来说，前序遍历和后续遍历的起始点都是 0 -> len-1
         return _buildTree(preorder, inorder, 0, preorder.length - 1, 0, inorder.length - 1);
     }
 
-    private static BinaryNode<Integer> _buildTree(int[] preorder, int[] inorder, int preStart, int preEnd, int inStart, int inEnd) {
+    private static TreeNode<Integer> _buildTree(int[] preorder, int[] inorder, int preStart, int preEnd, int inStart, int inEnd) {
         //边界条件
         if (preStart > preEnd) {
             //如果preStart>preEnd 说明没有子节点了
@@ -75,16 +77,15 @@ public class RecoverBinaryTree_index_1 {
         }
         int rootData = preorder[preStart];
         //跳出点
-        BinaryNode<Integer> root = new BinaryNode<Integer>().setData(rootData);
+        TreeNode<Integer> root = new TreeNode<>();
+        root.val = (rootData);
         int rootIdx = findIdx(inorder, rootData);
         //左子树长度
         int leftSize = rootIdx - inStart;
         // * 前序序列： preorder=[3,9,20,15,7]
         // * 中序序列： inorder=[9,3,15,20,7]
-        BinaryNode<Integer> left = _buildTree(preorder, inorder, preStart + 1, preStart + leftSize, inStart, rootIdx - 1);
-        root.setLeft(left);
-        BinaryNode<Integer> right = _buildTree(preorder, inorder, preStart + leftSize + 1, preEnd, rootIdx + 1, inEnd);
-        root.setRight(right);
+        root.left = _buildTree(preorder, inorder, preStart + 1, preStart + leftSize, inStart, rootIdx - 1);
+        root.right = _buildTree(preorder, inorder, preStart + leftSize + 1, preEnd, rootIdx + 1, inEnd);
         return root;
     }
 
