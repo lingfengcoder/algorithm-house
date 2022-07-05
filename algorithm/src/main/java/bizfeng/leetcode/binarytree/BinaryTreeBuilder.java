@@ -2,8 +2,7 @@ package bizfeng.leetcode.binarytree;
 
 import bizfeng.leetcode.base.BinaryNode;
 import bizfeng.leetcode.binarytree.recovery.RecoverBinaryTree_1;
-import bizfeng.leetcode.binarytree.recovery.RecoverBinaryTree_2;
-import bizfeng.leetcode.binarytree.recovery.RecoverBinaryTree_index_1;
+
 
 /**
  * 二叉树builder

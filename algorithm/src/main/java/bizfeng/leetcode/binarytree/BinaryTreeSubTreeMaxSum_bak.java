@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 
 
 /**
- *
  * ####################【经典单方法+单参数+内部数组方式解决递归问题】#################################
  * 力扣 1373 题
  * ⼆叉搜索⼦树的最⼤键值和
@@ -39,7 +38,7 @@ import lombok.extern.slf4j.Slf4j;
  * #
  */
 @Slf4j
-public class BinaryTreeSubTreeMaxSum {
+public class BinaryTreeSubTreeMaxSum_bak {
 
     public static void main(String[] args) {
 
@@ -57,44 +56,51 @@ public class BinaryTreeSubTreeMaxSum {
         // TreeNode<Integer> tree = RecoverBinaryTree_index_1.buildTree(new int[]{1, 4, 3, 40, 5, 2, 8, 7, 9}, new int[]{3, 4, 40, 1, 2, 5, 7, 8, 9});
         System.out.println(tree);
 
-        int max = maxSumBST(tree);
+        int max = findMaxSumBST(tree);
         log.info("maxSumBST={}", max);
     }
 
+    //step1: 左树任意节点都比右树和跟节点 小 右子树任意一个节点都比跟节点 大
+    //step2: 如果子树不是BST，那么父树也不是BST
+    //step3: 叶子节点也算是BST
+    private static int MAX;
 
-    private static int maxSumBST(TreeNode<Integer> root) {
-        findMaxBST(root);
-        return MAX_SUM;
+    private static int findMaxSumBST(TreeNode<Integer> node) {
+        maxSumBST(node);
+        return MAX;
     }
 
-    static int MAX_SUM = 0;
-
-    //1.如果子树不是BST，那么父树也一定不是BST
-    //2.左数任意节点都比 根节点和右树小
-    private static int[] findMaxBST(TreeNode<Integer> root) {
-        if (root == null) {
-            //赋予默认值 符合左边的最大值 也小于根，右边的最小值也大于根 这样就能处理 单链树 的情况
-            //叶子节点认为是BST
+    // * #         1
+    // * #       /   \
+    // * #      4      3
+    // * #     /  \   /  \
+    // * #    6    5 2    8
+    // * #               / \
+    // * #              7   9
+    private static int[] maxSumBST(TreeNode<Integer> node) {
+        //如果是叶子节点
+        if (node == null) {
             return new int[]{1, Integer.MAX_VALUE, Integer.MIN_VALUE, 0};
         }
-        int[] left = findMaxBST(root.left);
-        int[] right = findMaxBST(root.right);
-
-        int[] tmp = new int[4];
-        //左边的最大值 也小于根，
-        if (left[0] == 1 && left[2] < root.val
-                && right[0] == 1 && right[1] > root.val) {
-            tmp[0] = 1;//设置BST标识
-            //处理叶子节点
-            tmp[1] = Math.min(left[1], root.val);//设置最小值
-            tmp[2] = Math.max(right[2], root.val);//设置最大值
-
-            tmp[3] = left[3] + right[3] + root.val;//BST求和
-            MAX_SUM = Math.max(MAX_SUM, tmp[3]);
+        int[] leftTmp = maxSumBST(node.left);// {1,2,2,2} MAX=2
+        int[] rightTmp = maxSumBST(node.right);//{1,7,9,24} MAX=24
+        //result 定义 int[4]={是否是BST,最小值,最大值,BST和}
+        int[] result = new int[4];
+        //1.如果左树和右树都是BST 2.左数比根小，右树比根大
+        //两个条件都符合，说明本树也是BST
+        if (leftTmp[0] == 1 && rightTmp[0] == 1
+                //左数的最大值小于根节点 右树的最小值大于根节点
+                && leftTmp[2] < node.val && rightTmp[1] > node.val) {
+            result[0] = 1;
+            result[1] = Math.min(leftTmp[1], node.val);
+            result[2] = Math.max(rightTmp[2], node.val);
+            //BST求和
+            result[3] = leftTmp[3] + rightTmp[3] + node.val;
+            MAX = Math.max(MAX, result[3]);
         } else {
-            tmp[0] = 0;//不是BST
+            result[0] = 0;
         }
-        return tmp;
+        return result;
     }
 
 
