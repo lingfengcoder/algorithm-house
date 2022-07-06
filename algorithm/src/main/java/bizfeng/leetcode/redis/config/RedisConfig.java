@@ -2,21 +2,12 @@ package bizfeng.leetcode.redis.config;
 
 
 import bizfeng.leetcode.redis.RedisTypeEnum;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 
 /**
  * @author: wz
  * @date: 2021/2/3 16:53
  * @description:
  */
-@Setter
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
 public abstract class RedisConfig {
 
     private RedisTypeEnum type;
@@ -54,5 +45,133 @@ public abstract class RedisConfig {
 
     private long timeBetweenEvictionRunsMillis;
 
+    public long getTimeBetweenEvictionRunsMillis() {
+        return timeBetweenEvictionRunsMillis;
+    }
 
+    public void setTimeBetweenEvictionRunsMillis(long timeBetweenEvictionRunsMillis) {
+        this.timeBetweenEvictionRunsMillis = timeBetweenEvictionRunsMillis;
+    }
+
+
+    public long getMinEvictableIdleTimeMillis() {
+        return minEvictableIdleTimeMillis;
+    }
+
+    public void setMinEvictableIdleTimeMillis(long minEvictableIdleTimeMillis) {
+        this.minEvictableIdleTimeMillis = minEvictableIdleTimeMillis;
+    }
+
+
+    public int getNumTestsPerEvictionRun() {
+        return numTestsPerEvictionRun;
+    }
+
+    public void setNumTestsPerEvictionRun(int numTestsPerEvictionRun) {
+        this.numTestsPerEvictionRun = numTestsPerEvictionRun;
+    }
+
+    public int getMinIdle() {
+        return minIdle;
+    }
+
+    public void setMinIdle(int minIdle) {
+        this.minIdle = minIdle;
+    }
+
+    public boolean isTestOnCreate() {
+        return testOnCreate;
+    }
+
+    public void setTestOnCreate(boolean testOnCreate) {
+        this.testOnCreate = testOnCreate;
+    }
+
+    public boolean isTestOnBorrow() {
+        return testOnBorrow;
+    }
+
+    public void setTestOnBorrow(boolean testOnBorrow) {
+        this.testOnBorrow = testOnBorrow;
+    }
+
+    public boolean isTestOnReturn() {
+        return testOnReturn;
+    }
+
+    public void setTestOnReturn(boolean testOnReturn) {
+        this.testOnReturn = testOnReturn;
+    }
+
+    public boolean isTestWhileIdle() {
+        return testWhileIdle;
+    }
+
+    public void setTestWhileIdle(boolean testWhileIdle) {
+        this.testWhileIdle = testWhileIdle;
+    }
+
+    public RedisTypeEnum getType() {
+        return type;
+    }
+
+    public void setType(RedisTypeEnum type) {
+        this.type = type;
+    }
+
+    public String getHost() {
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
+
+    public String getAuth() {
+        return auth;
+    }
+
+    public void setAuth(String auth) {
+        this.auth = auth;
+    }
+
+    public int getMaxActive() {
+        return maxActive;
+    }
+
+    public void setMaxActive(int maxActive) {
+        this.maxActive = maxActive;
+    }
+
+    public int getMaxIdle() {
+        return maxIdle;
+    }
+
+    public void setMaxIdle(int maxIdle) {
+        this.maxIdle = maxIdle;
+    }
+
+    public int getMaxWait() {
+        return maxWait;
+    }
+
+    public void setMaxWait(int maxWait) {
+        this.maxWait = maxWait;
+    }
+
+    public int getTimeout() {
+        return timeout;
+    }
+
+    public void setTimeout(int timeout) {
+        this.timeout = timeout;
+    }
 }

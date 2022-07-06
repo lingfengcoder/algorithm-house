@@ -13,7 +13,7 @@ public class RedisClusterConfig extends RedisConfig {
 
     public RedisClusterConfig() {
         super();
-        this.setType(RedisTypeEnum.CLUSTER);
+        setType(RedisTypeEnum.CLUSTER);
     }
 
     public String getHostLink() {

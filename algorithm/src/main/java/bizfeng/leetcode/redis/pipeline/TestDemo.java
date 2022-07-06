@@ -21,16 +21,16 @@ public class TestDemo {
         String key = "wz66609";
         for (int x = 0; x < 10; x++) {
             RedisStoreUtil.zadd(key, "val" + x, x + 0.0);
-           // Set<String> pageData = RedisStoreUtil.getPageData(key, 0, 10, false);
-            //System.out.println(pageData);
+            Set<String> pageData = RedisStoreUtil.getPageData(key, 0, 10, false);
+            System.out.println(pageData);
         }
         RedisStoreUtil.zadd("ccc", "1", 1.0);
         RedisStoreUtil.zadd("ccc", "2", 22.0);
         RedisStoreUtil.zadd("ccc", "3", 333.0);
         RedisStoreUtil.zadd("ccc", "4", 444.0);
 
-       // Set<String> ccc = RedisStoreUtil.getPageData("ccc", 0, 10, false);
-        //System.out.println(ccc);
+        Set<String> ccc = RedisStoreUtil.getPageData("ccc", 0, 10, false);
+        System.out.println(ccc);
         List<String> wz666;
         try {
             wz666 = RedisStoreUtil.mget("123");

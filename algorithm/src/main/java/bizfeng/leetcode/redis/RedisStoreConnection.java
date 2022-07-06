@@ -8,10 +8,8 @@ import bizfeng.leetcode.redis.config.RedisSentinelConfig;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import redis.clients.jedis.*;
-import redis.clients.jedis.util.Pool;
-
+import redis.clients.util.Pool;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -109,15 +107,10 @@ public class RedisStoreConnection {
             if (hosts.length > 0) {
                 for (String s : hosts) {
                     String[] host = s.split(":");
-                    hostAndPortsSet.add(new HostAndPort(host[0], Integer.parseInt(host[1])));
+                    hostAndPortsSet.add(new HostAndPort(host[0],Integer.parseInt(host[1])));
                 }
             }
-
-            GenericObjectPoolConfig<Connection> genericObjectPoolConfig = new GenericObjectPoolConfig<>();
-            int maxIdle = poolConfig.getMaxIdle();
-            genericObjectPoolConfig.setMaxIdle(maxIdle);
-            //todo jedis 4.0代码需要更新
-            return new JedisCluster(hostAndPortsSet, config.getTimeout(), config.getTimeout(), 6, config.getAuth(),genericObjectPoolConfig);
+            return new JedisCluster(hostAndPortsSet, config.getTimeout(), config.getTimeout(), 6, config.getAuth(), poolConfig);
         }
         return null;
     }

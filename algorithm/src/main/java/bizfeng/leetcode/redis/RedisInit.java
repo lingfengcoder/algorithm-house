@@ -1,7 +1,6 @@
 package bizfeng.leetcode.redis;
 
 
-
 import bizfeng.leetcode.redis.config.RedisClusterConfig;
 import bizfeng.leetcode.redis.config.RedisConfig;
 import org.apache.commons.logging.Log;
@@ -16,7 +15,7 @@ import org.springframework.stereotype.Component;
  * @description:
  */
 //@Component
-public class RedisInit  {
+public class RedisInit   {
     private static final Log log = LogFactory.getLog(RedisInit.class);
 
     private static boolean TEST_ON_BORROW = true;
@@ -25,12 +24,12 @@ public class RedisInit  {
     public static boolean isEnabled = true;
 
     private static RedisConfig preparedConfig() {
-        String HOST = "192.168.14.84";
-        String AUTH = "7379";
+        String HOST =  "";
+        String AUTH =  "";
         int MAX_ACTIVE =  1024;
-        int MAX_IDLE =  8;
-        int MAX_WAIT = 10000;
-        int TIMEOUT =  10000;
+        int MAX_IDLE = 8;
+        int MAX_WAIT = 1024;
+        int TIMEOUT =  1024;
         //设置redis连接模式
         RedisClusterConfig config = new RedisClusterConfig();
 //        RedisSimpleConfig config = new RedisSimpleConfig();

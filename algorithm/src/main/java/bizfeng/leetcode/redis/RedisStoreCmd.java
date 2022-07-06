@@ -1,15 +1,14 @@
 package bizfeng.leetcode.redis;
 
 
-
 import bizfeng.leetcode.redis.config.RedisConfig;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisCluster;
-
+import redis.clients.jedis.JedisCommands;
 import redis.clients.jedis.Pipeline;
-import redis.clients.jedis.commands.JedisCommands;
 
 import java.io.IOException;
 
@@ -19,8 +18,8 @@ import java.io.IOException;
  * @date: 2021/2/3 20:47
  * @description:
  */
+@Slf4j
 public class RedisStoreCmd {
-    private static final Log log = LogFactory.getLog(RedisStoreCmd.class);
 
     protected static JedisCommands getCmd() throws Exception {
 
@@ -93,7 +92,7 @@ public class RedisStoreCmd {
         if (pipeline != null) {
             try {
                 pipeline.close();
-            } catch (Exception e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }

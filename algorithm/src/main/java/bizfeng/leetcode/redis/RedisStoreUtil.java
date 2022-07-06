@@ -1,17 +1,19 @@
 package bizfeng.leetcode.redis;
 
 
-
+import bizfeng.leetcode.redis.pipeline.JedisClusterPipeline;
+import cn.hutool.json.JSON;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisCluster;
-import redis.clients.jedis.Pipeline;
-import redis.clients.jedis.commands.JedisCommands;
+import redis.clients.jedis.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
+import static bizfeng.leetcode.redis.RedisStoreCmd.getJedisCluster;
 
 
 /**
@@ -19,14 +21,12 @@ import java.util.Map;
  * @Date: 2020/11/9 16:00
  * @Description: redis持久化存储工具
  */
-
+@Slf4j
 public class RedisStoreUtil {
-
-    private static final Log log = LogFactory.getLog(RedisStoreUtil.class);
 
 
     private static void log(Exception e) {
-        log.error(e, e.fillInStackTrace());
+        log.error(e.getMessage(), e);
     }
 
     private static void info(String s) {
@@ -107,11 +107,6 @@ public class RedisStoreUtil {
         return 0L;
     }
 
-    public static <T> void set(String key, T t) {
-         //todo jedis 4.0 需要更新代码
-        throw new RuntimeException("//todo jedis 4.0 需要更新代码");
-       // put(key, JSONObject.toJSONString(t));
-    }
 
     public static void set(String key, String data) {
         put(key, data);
@@ -276,48 +271,46 @@ public class RedisStoreUtil {
      * @author wz
      * @date 2021/2/22 13:58
      */
-    //todo jedis 4.0 需要更新代码
-//    public static <T> List<T> redisClusterPipelineZRem(Map<String, String> map) throws Exception {
-//        JedisCluster jedisCluster = getJedisCluster();
-//        if (jedisCluster == null) {
-//            throw new Exception("pipelineGet 仅支持redis cluster模式下进行!");
-//        }
-//        JedisClusterPipeline pipeline = JedisClusterPipeline.pipelined(jedisCluster);
-//        try {
-//            pipeline.refreshCluster();
-//            for (Map.Entry<String, String> entry : map.entrySet()) {
-//                pipeline.zrem(entry.getKey(), entry.getValue());
-//            }
-//            return pipeline.syncAndReturnAll();
-//        } catch (Exception e) {
-//            log(e);
-//        }
-//        return null;
-//    }
+    public static <T> List<T> redisClusterPipelineZRem(Map<String, String> map) throws Exception {
+        JedisCluster jedisCluster = getJedisCluster();
+        if (jedisCluster == null) {
+            throw new Exception("pipelineGet 仅支持redis cluster模式下进行!");
+        }
+        JedisClusterPipeline pipeline = JedisClusterPipeline.pipelined(jedisCluster);
+        try {
+            pipeline.refreshCluster();
+            for (Map.Entry<String, String> entry : map.entrySet()) {
+                pipeline.zrem(entry.getKey(), entry.getValue());
+            }
+            return pipeline.syncAndReturnAll();
+        } catch (Exception e) {
+            log(e);
+        }
+        return null;
+    }
 
     /**
      * @description redis cluster集群模式下 通过管道批量删除
      * @author wz
      * @date 2021/2/22 13:58
      */
-    //todo jedis 4.0 需要更新代码
-//    public static <T> List<T> redisClusterPipelineZadd(String key, Map<String, Double> map) throws Exception {
-//        JedisCluster jedisCluster = getJedisCluster();
-//        if (jedisCluster == null) {
-//            throw new Exception("pipelineGet 仅支持redis cluster模式下进行!");
-//        }
-//        JedisClusterPipeline pipeline = JedisClusterPipeline.pipelined(jedisCluster);
-//        try {
-//            pipeline.refreshCluster();
-//            for (Map.Entry<String, Double> entry : map.entrySet()) {
-//                pipeline.zadd(key, entry.getValue(), entry.getKey());
-//            }
-//            return pipeline.syncAndReturnAll();
-//        } catch (Exception e) {
-//            log(e);
-//        }
-//        return null;
-//    }
+    public static <T> List<T> redisClusterPipelineZadd(String key, Map<String, Double> map) throws Exception {
+        JedisCluster jedisCluster = getJedisCluster();
+        if (jedisCluster == null) {
+            throw new Exception("pipelineGet 仅支持redis cluster模式下进行!");
+        }
+        JedisClusterPipeline pipeline = JedisClusterPipeline.pipelined(jedisCluster);
+        try {
+            pipeline.refreshCluster();
+            for (Map.Entry<String, Double> entry : map.entrySet()) {
+                pipeline.zadd(key, entry.getValue(), entry.getKey());
+            }
+            return pipeline.syncAndReturnAll();
+        } catch (Exception e) {
+            log(e);
+        }
+        return null;
+    }
 
     /**
      * @param keys
@@ -326,45 +319,44 @@ public class RedisStoreUtil {
      * @author wz
      * @date 2021/2/22 13:58
      */
-    //todo jedis 4.0 需要更新代码
-//    public static <T> List<T> redisClusterPipelineGet(String... keys) throws Exception {
-//        info("redisClusterPipelineGet " + keys);
-//        JedisCluster jedisCluster = getJedisCluster();
-//        if (jedisCluster == null) {
-//            throw new Exception("pipelineGet 仅支持redis cluster模式下进行!");
-//        }
-//        JedisClusterPipeline pipeline = JedisClusterPipeline.pipelined(jedisCluster);
-//        try {
-//            pipeline.refreshCluster();
-//            for (String k : keys) {
-//                pipeline.get(k);
-//            }
-//            return pipeline.syncAndReturnAll();
-//        } catch (Exception e) {
-//            log(e);
-//        }
-//        return null;
-//    }
-    //todo jedis 4.0 需要更新代码
-//    public static <T> void redisClusterPipelineSet(Map<String, T> data) throws Exception {
-//        info("redisClusterPipelineSet " + data);
-//        JedisCluster jedisCluster = getJedisCluster();
-//        if (jedisCluster == null) {
-//            throw new Exception("pipelineSet 仅支持redis cluster模式下进行!");
-//        }
-//        JedisClusterPipeline pipeline = JedisClusterPipeline.pipelined(jedisCluster);
-//        try {
-//            pipeline.refreshCluster();
-//            for (Map.Entry<String, T> item : data.entrySet()) {
-//                pipeline.set(item.getKey(), item.getKey());
-//            }
-//        } catch (Exception e) {
-//            log(e);
-//        } finally {
-//            pipeline.sync();
-//        }
-//
-//    }
+    public static <T> List<T> redisClusterPipelineGet(String... keys) throws Exception {
+        info("redisClusterPipelineGet " + keys);
+        JedisCluster jedisCluster = getJedisCluster();
+        if (jedisCluster == null) {
+            throw new Exception("pipelineGet 仅支持redis cluster模式下进行!");
+        }
+        JedisClusterPipeline pipeline = JedisClusterPipeline.pipelined(jedisCluster);
+        try {
+            pipeline.refreshCluster();
+            for (String k : keys) {
+                pipeline.get(k);
+            }
+            return pipeline.syncAndReturnAll();
+        } catch (Exception e) {
+            log(e);
+        }
+        return null;
+    }
+
+    public static <T> void redisClusterPipelineSet(Map<String, T> data) throws Exception {
+        info("redisClusterPipelineSet " + data);
+        JedisCluster jedisCluster = getJedisCluster();
+        if (jedisCluster == null) {
+            throw new Exception("pipelineSet 仅支持redis cluster模式下进行!");
+        }
+        JedisClusterPipeline pipeline = JedisClusterPipeline.pipelined(jedisCluster);
+        try {
+            pipeline.refreshCluster();
+            for (Map.Entry<String, T> item : data.entrySet()) {
+                pipeline.set(item.getKey(), item.getKey());
+            }
+        } catch (Exception e) {
+            log(e);
+        } finally {
+            pipeline.sync();
+        }
+
+    }
 
     /**
      * @param key   指定key
@@ -408,7 +400,7 @@ public class RedisStoreUtil {
         }
     }
 
-    public static List<String> zrange(String key, long start, long end) {
+    public static Set<String> zrange(String key, long start, long end) {
         JedisCommands cmd = null;
         try {
             cmd = RedisStoreCmd.getCmd();
@@ -440,14 +432,14 @@ public class RedisStoreUtil {
      * @param end   结束的位置
      * @param min   分数最小值
      * @param max   分数最大值
-     * @return java.util.List<java.lang.String>
+     * @return java.util.Set<java.lang.String>
      * @description: 获取zset
      * @author:wz
      * @date 2021/2/4 11:13
      */
-    public static List<String> zrangeByScore(String key, Integer start, Integer end, Double min, Double max) {
+    public static Set<String> zrangeByScore(String key, Integer start, Integer end, Double min, Double max) {
         JedisCommands cmd = null;
-        List<String> set = null;
+        Set<String> set = null;
         try {
             cmd = RedisStoreCmd.getCmd();
             set = cmd.zrangeByScore(key, min, max, start, end);
@@ -470,9 +462,9 @@ public class RedisStoreUtil {
      * @param isMin2Max 是否是从小到大
      * @description: 获取指定key 在min->max范围内 进行 isMin2Max(小->大或反之) 排序 并进行 pageIndex&pageSize分页
      */
-    public static List<String> getPageDataByScore(String key, Integer pageIndex, Integer pageSize, Double min, Double max, Boolean isMin2Max) {
+    public static Set<String> getPageDataByScore(String key, Integer pageIndex, Integer pageSize, Double min, Double max, Boolean isMin2Max) {
         JedisCommands cmd = null;
-        List<String> set = null;
+        Set<String> set = null;
         try {
             cmd = RedisStoreCmd.getCmd();
             Page page = transPage(pageIndex, pageSize);
@@ -500,7 +492,7 @@ public class RedisStoreUtil {
      */
     public static List<String> getPageDetailDataByScore(String key, Integer pageIndex, Integer pageSize, Double min, Double max, Boolean isMin2Max) {
         JedisCommands cmd = null;
-        List<String> set = null;
+        Set<String> set = null;
         try {
             cmd = RedisStoreCmd.getCmd();
             set = getPageDataByScore(key, pageIndex, pageSize, min, max, isMin2Max);
@@ -522,9 +514,9 @@ public class RedisStoreUtil {
      * @param isMin2Max 是否从小到大
      * @description: 获取分页数据
      */
-    public static List<String> getPageData(String key, Integer pageIndex, Integer pageSize, Boolean isMin2Max) {
+    public static Set<String> getPageData(String key, Integer pageIndex, Integer pageSize, Boolean isMin2Max) {
         JedisCommands cmd = null;
-        List<String> set = null;
+        Set<String> set = null;
         try {
             info("getPageData " + key);
 
@@ -552,7 +544,7 @@ public class RedisStoreUtil {
      */
     public static List<String> getPageDetailData(String key, Integer pageIndex, Integer pageSize, Boolean isMin2Max) {
         JedisCommands cmd = null;
-        List<String> set = null;
+        Set<String> set = null;
         try {
             cmd = RedisStoreCmd.getCmd();
             set = getPageData(key, pageIndex, pageSize, isMin2Max);
@@ -565,21 +557,19 @@ public class RedisStoreUtil {
         return null;
     }
 
-    private static List<String> mget(JedisCommands cmd, List<String> set) {
+    private static List<String> mget(JedisCommands cmd, Set<String> set) {
         String[] keysArr = new String[set.size()];
         return mget(cmd, set.toArray(keysArr));
     }
 
     private static List<String> mget(JedisCommands cmd, String[] keysArr) {
-        //pipeline 的二进制数据传输模式
-        //todo
-//        if (cmd instanceof BinaryJedisClusterCommands) {
-//            try {
-//                return redisClusterPipelineGet(keysArr);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
+        if (cmd instanceof BinaryJedisClusterCommands) {
+            try {
+                return redisClusterPipelineGet(keysArr);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         if (cmd instanceof Jedis) {
             Jedis jcmd = (Jedis) cmd;
             return jcmd.mget(keysArr);
@@ -594,8 +584,7 @@ public class RedisStoreUtil {
     private static <T> void mset(JedisCommands cmd, Map<String, T> data) {
         if (cmd instanceof JedisCluster) {
             try {
-                //todo jedis 4.0 需要更新代码
-                //redisClusterPipelineSet(data);
+                redisClusterPipelineSet(data);
             } catch (Exception e) {
                 e.printStackTrace();
             }
