@@ -65,6 +65,7 @@ public class QuickSort implements Sort<Integer> {
             swap(array, i, j);
         }
         //用中间位置的j和基准值 交换位置
+        //把基准值换到中间去
         swap(array, j, left);
         return j;
     }
