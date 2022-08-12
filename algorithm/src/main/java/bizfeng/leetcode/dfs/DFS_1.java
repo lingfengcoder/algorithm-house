@@ -8,7 +8,10 @@ import java.util.List;
 
 
 /**
+ * ********************** 组合问题  回溯算法 ************************************
  * 注意：DFS递归函数一般都是void没有返回参数。
+ * DFS的特点：外层用循环控制所有的 元素的遍历，内层用递归和数组控制，元素的回归。
+ *          在达到最后一个位置后在进行 回归的上一步进行其他 可能的选择
  * #
  * 给定一个不含重复数字的数组 nums ，返回其 所有可能的全排列 。你可以 按任意顺序 返回答案。
  * 示例 1：
@@ -37,13 +40,40 @@ public class DFS_1 {
         List<List<Integer>> result = new ArrayList<>();
         algorithm(new int[]{1, 2, 3, 4}, result);
         log.info("size={}, {}", result.size(), result);
+        result.clear();
+
+        fullSort(new int[]{1, 2, 3, 4}, result);
+        log.info("size ={} {}", result.size(), result);
     }
 
     //返回数组的全排列
-    private static int[][] fullSort(int[] array) {
-
-        return null;
+    private static void fullSort(int[] array, List<List<Integer>> result) {
+        backtracking(array, result, null, new int[array.length]);
     }
+
+    private static void backtracking(int[] array, List<List<Integer>> result, LinkedList<Integer> tmp, int[] used) {
+        if (tmp == null) {
+            tmp = new LinkedList<>();
+        }
+        if (tmp.size() == array.length) {
+            result.add(new ArrayList<>(tmp));
+            return;
+        }
+
+        for (int i = 0; i < array.length; i++) {
+            //表示第i个元素已经占用了，只能用剩余其他的元素了
+            if (used[i] == 1) {
+                continue;
+            }
+            used[i] = 1;
+            tmp.add(array[i]);
+            //利用递归，进行后续的组合计算
+            backtracking(array, result, tmp, used);
+            used[i] = 0;
+            tmp.removeLast();
+        }
+    }
+
 
     // [1,2,3] => [1,2,3] [1,3,2] [2,1,3] [2,3,1] [3,1,2] [3,2,1]
     private static List<Integer> algorithm(int[] array, List<List<Integer>> result) {
