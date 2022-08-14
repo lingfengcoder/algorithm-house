@@ -46,11 +46,17 @@ public class BFS_3 {
     public static void main(String[] args) {
         // int[][] array = new int[3][2];
         int[][] array = transArr("123|540");
-        String str = transStr(array);
-        log.info("{}", str);
-        StepMap play = play(array, "123|450");
+        StepMap stepMap = play(array, "123|450");
+        print(stepMap);
+
+        array = transArr("412|503");
+        stepMap = play(array, "123|450");
+        print(stepMap);
+    }
+
+    private static void print(StepMap play) {
         if (play == null) {
-            log.info("无解");
+            log.info("游戏无解");
             return;
         }
         int count = 0;
@@ -60,7 +66,7 @@ public class BFS_3 {
             play = play.father;
             ++count;
         } while (play.father != null);
-        log.info("走法： {}", builder.toString());
+        log.info("游戏走法： {}", builder.toString());
         log.info("需要步数:{}", count);
 
     }
@@ -73,6 +79,7 @@ public class BFS_3 {
     }
 
     private static StepMap play(int[][] array, String target) {
+        log.info("开始游戏");
         //存放图
         Queue<StepMap> stepLink = new LinkedList<>();
         //存放已经走过的路，防止重复
@@ -106,8 +113,8 @@ public class BFS_3 {
                     }
                 }
             }
-            log.info("steplink={}", stepLink.size());
-            log.info("used size:{}", used.size());
+          //  log.info("steplink={}", stepLink.size());
+           // log.info("used size:{}", used.size());
             ++step;
         }
         return null;
