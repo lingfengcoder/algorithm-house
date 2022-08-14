@@ -37,52 +37,29 @@ import java.util.function.Function;
 public class DFS_7 {
 
     public static void main(String[] args) {
-        int[] array = new int[]{100, 200, 4, 12};
-        //  int[] array = new int[]{2, 3, 5};
+        int[] array = new int[]{100, 200, 4, 12};//400
+        // int[] array = new int[]{2, 3, 5};
         //{100,200,4,12} target=400
-        List<List<Integer>> combine = combine(array, 400);
+      //   List<List<Integer>> combine = combine02(array, 400);
+       List<List<Integer>> combine = combine01(array, 400);
         // List<List<Integer>> combine = combinationSum(array, 400);
         log.info("result len:{} ,result:{} ", combine.size());
     }
 
 
-    static List<List<Integer>> res = new ArrayList<>(); //记录答案
-    static List<Integer> path = new ArrayList<>();  //记录路径
-
-    public static List<List<Integer>> combinationSum(int[] candidates, int target) {
-        dfs(candidates, 0, target);
-        return res;
-    }
-
-    public static void dfs(int[] c, int u, int target) {
-        if (target < 0) return;
-        if (target == 0) {
-            log.info("result size: {}", path.size());
-            log.info("item list: {}", path);
-            res.add(new ArrayList(path));
-            return;
-        }
-        for (int i = u; i < c.length; i++) {
-            if (c[i] <= target) {
-                path.add(c[i]);
-                dfs(c, i, target - c[i]); // 因为可以重复使用，所以还是i
-                path.remove(path.size() - 1); //回溯，恢复现场
-            }
-        }
-    }
-
-    private static List<List<Integer>> combine(int[] array, int target) {
+    //==========================================================方式一==============================================================================
+    private static List<List<Integer>> combine01(int[] array, int target) {
 
         //关键步骤，先将array排序，将相同的元素挨在一起
         //  Arrays.sort(array);
         List<List<Integer>> result = new ArrayList<>();
 
-        dfs_algorithm(array, 0, target, new LinkedList<>(), result);
+        dfs_algorithm01(array, 0, target, new LinkedList<>(), result);
         // result = bfs_algorithm(array, target);
         return result;
     }
 
-    private static void dfs_algorithm(int[] array, int start, int target, LinkedList<Integer> path, List<List<Integer>> result) {
+    private static void dfs_algorithm01(int[] array, int start, int target, LinkedList<Integer> path, List<List<Integer>> result) {
 
         if (target < 0) {
             return;
@@ -95,9 +72,47 @@ public class DFS_7 {
         for (int i = start; i < array.length; i++) {
             if (array[i] <= target) {
                 path.add(array[i]);
-                dfs_algorithm(array, i, target - array[i], path, result);
+                dfs_algorithm01(array, i, target - array[i], path, result);
                 path.removeLast();
             }
+        }
+    }
+
+
+    //===========================================方式二==========================================================================================
+
+
+    private static List<List<Integer>> combine02(int[] array, int target) {
+
+        //关键步骤，先将array排序，将相同的元素挨在一起
+       // Arrays.sort(array);
+        List<List<Integer>> result = new ArrayList<>();
+        dfs_algorithm02(array, target, result, null, 0);
+        // result = bfs_algorithm(array, target);
+        return result;
+    }
+
+
+    private static void dfs_algorithm02(int[] array, int target, List<List<Integer>> result, LinkedList<Integer> list, int start) {
+        if (list == null) {
+            list = new LinkedList<>();
+        }
+        int sum = list.stream().mapToInt(Integer::intValue).sum();
+        if (sum == target) {
+            ArrayList<Integer> tmp = new ArrayList<>(list);
+            // Collections.sort(tmp);
+            result.add(tmp);
+            log.info("result size:{}", result.size());
+            log.info("item:{}", list);
+            return;
+        } else if (sum > target) {
+            return;
+        }
+        for (int i = start; i < array.length; i++) {
+            list.add(array[i]);
+            dfs_algorithm02(array, target, result, list, i);
+            list.removeLast();
+            //list 排序
         }
     }
 
