@@ -65,6 +65,7 @@ public class FindMaxFromWindow {
             window.offer(data[x]);
             //窗口填充完毕开始 统计结果
             if (x >= windowSize) {
+                //代表窗口开始，向右超出限制滑动一个
                 count++;
             }
             //找出最大值
