@@ -2,6 +2,9 @@ package bizfeng.leetcode.point;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.locks.ReentrantLock;
+
 /**
  * [数组快慢指针] 删除有序数组中重复的项
  * <p>
@@ -50,4 +53,5 @@ public class Point_1 {
         //数组长度为索引+1
         return slow + 1;
     }
+
 }
