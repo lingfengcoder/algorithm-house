@@ -1,7 +1,6 @@
 package bizfeng.leetcode.link;
 
 import bizfeng.leetcode.base.LinkedNode;
-import bizfeng.leetcode.tree.Node;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -20,6 +19,12 @@ import lombok.extern.slf4j.Slf4j;
 public class Link_01 {
 
     public static void main(String[] args) {
+        Integer a=127;
+        Integer b=127;
+        Integer c=-129;
+        Integer d=-129;
+        System.out.println(a==b);
+        System.out.println(c==d);
 
         LinkedNode<Integer> link1 = LinkedNode.trans(new Integer[]{1, 2, 4, 9});
         LinkedNode<Integer> link2 = LinkedNode.trans(new Integer[]{1, 3, 5, 7, 8});
@@ -37,25 +42,25 @@ public class Link_01 {
         LinkedNode<Integer> p1 = list1;
         LinkedNode<Integer> p2 = list2;
         while (p1 != null && p2 != null) {
-            if (p1.getData() > p2.getData()) {
-                tmp.setNext(p2);
-                p2 = p2.getNext();
+            if (p1.data > p2.data) {
+                tmp.next = (p2);
+                p2 = p2.next;
             } else {
-                tmp.setNext(p1);
-                p1 = p1.getNext();
+                tmp.next = (p1);
+                p1 = p1.next;
             }
-            tmp = tmp.getNext();
+            tmp = tmp.next;
         }
         //补偿机制
         if (p1 != null) {
             //说明P2遍历完毕了
-            tmp.setNext(p1);
+            tmp.next = (p1);
         }
         if (p2 != null) {
             //说明P1遍历完了
-            tmp.setNext(p2);
+            tmp.next = (p2);
         }
-        return head.getNext();
+        return head.next;
     }
 
 }

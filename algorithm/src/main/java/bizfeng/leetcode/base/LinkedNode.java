@@ -4,16 +4,17 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter
-@Setter
+
 @ToString
+@Setter
+@Getter
 /**
  * 链表节点
  */
 public class LinkedNode<T> {
-    private T data;
-    private LinkedNode<T> next;
-    private LinkedNode<T> prev;
+    public T data;
+    public LinkedNode<T> next;
+    public LinkedNode<T> prev;
 
     public LinkedNode() {
     }
@@ -26,10 +27,10 @@ public class LinkedNode<T> {
     public static <T> LinkedNode<T> trans(T[] array) {
         LinkedNode<T> head = new LinkedNode<>(), tmp = head;
         for (T t : array) {
-            tmp.setNext(new LinkedNode<>(t));
-            tmp = tmp.getNext();
+            tmp.next = (new LinkedNode<>(t));
+            tmp = tmp.next;
         }
-        return head.getNext();
+        return head.next;
     }
 
     public static void main(String[] args) {
@@ -37,4 +38,6 @@ public class LinkedNode<T> {
         LinkedNode<Integer> trans = trans(array);
         System.out.println(trans);
     }
+
+
 }

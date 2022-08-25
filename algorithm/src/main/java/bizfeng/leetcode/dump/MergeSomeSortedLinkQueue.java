@@ -4,8 +4,6 @@ package bizfeng.leetcode.dump;
 import bizfeng.leetcode.base.LinkedNode;
 
 import java.util.Comparator;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.PriorityQueue;
 
 /**
@@ -47,11 +45,11 @@ public class MergeSomeSortedLinkQueue {
         LinkedNode<Integer> tmpHead = head;
         for (int item : data) {
             LinkedNode<Integer> tmp = new LinkedNode<>();
-            tmp.setData(item);
-            tmpHead.setNext(tmp);
-            tmpHead = tmpHead.getNext();
+            tmp.data = (item);
+            tmpHead.next = (tmp);
+            tmpHead = tmpHead.next;
         }
-        return head.getNext();
+        return head.next;
     }
 
     private static LinkedNode<Integer> merge(LinkedNode<Integer>[] data) {
