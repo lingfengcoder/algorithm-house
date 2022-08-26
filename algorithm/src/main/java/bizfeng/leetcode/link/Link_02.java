@@ -67,6 +67,7 @@ public class Link_02 {
 
     private static ListNode mergeSomeLists_02(ListNode[] ListNodes) {
         if (ListNodes.length == 0) return null;
+        //从小到达排序的队列
         PriorityQueue<ListNode> queue = new PriorityQueue<>(ListNodes.length, (a, b) -> a.val - b.val);
         ListNode tmp;
         for (ListNode listNode : ListNodes) {
@@ -102,6 +103,7 @@ public class Link_02 {
         while (true) {
             int minIndex = 0;
             int count = 0;
+            //每次都对 N各链表的头部进行比较，找出最小的那个
             for (int i = 0; i < ListNodes.length; i++) {
                 if (tmpArr[minIndex] == null) {
                     minIndex = i;
