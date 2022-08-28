@@ -17,7 +17,7 @@ public class Link_05 {
 
         ListNode link1 = ListNode.trans(new int[]{1, 2, 3});
         ListNode[] array = new ListNode[1];
-        log.info("{}", middleNode(link1));
+        log.info("{}", linkHasCycle(link1));
     }
 
 
@@ -28,13 +28,10 @@ public class Link_05 {
     // 1->2->3->4
     // fast : 1  3 null
     // slow : 1  2  3
-    private static boolean middleNode(ListNode head) {
+    private static boolean linkHasCycle(ListNode head) {
         ListNode slow, fast = slow = head;
-        while (fast != null) {
+        while (fast != null && fast.next != null) {
             //一倍速
-            if (fast.next == null) {
-                break;
-            }
             slow = slow.next;
             //两倍速
             fast = fast.next.next;
